@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import GlobalApi from '../_utils/GlobalApi'
 import BusinessItem from './BusinessItem';
-function BusinesslIST() {
+function BusinessList() {
   const params = useSearchParams();
   const [category,setCategory] = useState('all');
   const [businessList,setBusinessList] = useState([]);
@@ -33,4 +33,4 @@ function BusinesslIST() {
   )
 }
 
-export default BusinesslIST
+export default BusinessList
