@@ -4,7 +4,7 @@ import MenuSection from './MenuSection';
 
 function RestroTabs({restaurant}) {
   return (
-    <Tabs defaultValue="category" className="w-[400px] mt-10">
+    <Tabs defaultValue="category" className="w-[1300px] mt-10">
       <TabsList>
         <TabsTrigger value="category">Category</TabsTrigger>
         <TabsTrigger value="about">About</TabsTrigger>
