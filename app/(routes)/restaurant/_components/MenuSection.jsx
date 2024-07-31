@@ -25,7 +25,7 @@ function MenuSection({restaurant}) {
                 ))}
             </div>
             <div className='md:col-span-3 col-span-4'>
-                <h2 className='font-extrabold text-lg'>{menuItemList.category}</h2>
+                <h2 className='font-extrabold text-lg'>{menuItemList?.category}</h2>
 
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5'>
                   {/* {console.log(menuItemList.menuItem[0].productImage[0])} */}
