@@ -106,7 +106,9 @@ const AddToCart = async (data) => {
     data.productImage +
     `", productName: "` +
     data.name +
-    `"}
+    `"
+    restaurant: {connect: {slug: "`+data.restaurantSlug+`"}}}
+    
   ) {
     id
   }
@@ -128,6 +130,13 @@ const GetUserCart=async(userEmail)=>{
       productDescription
       productImage
       productName
+      restaurant {
+      name
+      banner {
+        url
+      }
+        slug
+      }
     }
   }`
   const result = await request(MASTER_URL, query);

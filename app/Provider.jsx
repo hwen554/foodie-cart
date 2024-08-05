@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { CartUpdateContext } from './_context/CartUpdateContext';
 
 function Provider({ children }) {
-  const [updateCart,setUpdateCart] = useState();
+  const [updateCart,setUpdateCart] = useState(false);
   return (
     <CartUpdateContext.Provider value={{updateCart,setUpdateCart}}>
       <div className='px-10 md:px-20 relative'>
@@ -14,7 +14,7 @@ function Provider({ children }) {
         <Header />
         <Toaster/>
       {/* </SignedIn> */}
-      {children}
+        {children}
     </div>
     </CartUpdateContext.Provider>
   );
