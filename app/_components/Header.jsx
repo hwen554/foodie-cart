@@ -12,6 +12,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import Cart from './Cart'
+import Link from 'next/link'
 
 function Header() {
 
@@ -19,11 +21,22 @@ function Header() {
   const {updateCart,setUpdateCart} = useContext(CartUpdateContext);
   const [cart,setCart] = useState([]);
 
-  useEffect(()=>{
-    console.log("Excute me");
-    user&&GetUserCart()
-    console.log(cart)
-  },[updateCart&&user])
+  // useEffect(()=>{
+  //   if (!user) return;
+  //   console.log("Execute me");
+  //   GetUserCart();
+  // },[updateCart,user])
+
+  // 每次 user 或 updateCart 变化时，都重新获取最新购物车
+  useEffect(() => {
+    if (!user) {
+      // 如果还没拿到 user 或未登录，清空/或者直接return
+      setCart([]);
+      return;
+    }
+    // user 存在时再去后端拿最新的购物车
+    GetUserCart();
+  }, [user, updateCart]);
 
   const GetUserCart=()=>{
     GlobalApi.GetUserCart(user?.primaryEmailAddress.emailAddress).then(resp=>{
@@ -31,7 +44,7 @@ function Header() {
       console.log(resp.userCarts);
       
       setCart(resp?.userCarts);
-      console.log(cart)
+      // console.log(cart)
 
     })
   }
@@ -40,8 +53,9 @@ function Header() {
 
   return (
     <div className="flex justify-between items-center p-6 md:px-20 shadow-sm">
-      <Image src="/logo.svg" alt="logo" width={100} height={100} />
-
+      <Link href="/">
+        <Image src="/logo.svg" alt="logo" width={100} height={100} />
+      </Link>
       <div className="hidden md:flex border p-2 rounded-lg bg-gray-200 ">
         <input type="text" className="bg-transparent w-full outline-none" />
         <Search />
@@ -58,7 +72,9 @@ function Header() {
             </label>
           </div>
          </PopoverTrigger>
-            <PopoverContent>Place content for the popover here.</PopoverContent>
+            <PopoverContent className='w-full'>
+               <Cart cart={cart}/>
+            </PopoverContent>
           </Popover>
 
           <UserButton afterSignOutUrl="/" />
