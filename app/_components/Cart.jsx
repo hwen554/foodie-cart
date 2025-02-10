@@ -5,6 +5,7 @@ import React, { useContext } from 'react'
 import GlobalApi from '../_utils/GlobalApi'
 import { toast } from 'sonner'
 import { CartUpdateContext } from '../_context/CartUpdateContext'
+import Link from 'next/link'
 
 function Cart({cart}) {
 
@@ -75,7 +76,9 @@ function Cart({cart}) {
                     <X onClick={()=>RemoveItemFromCart(item.id)} className='h-4 w-4 text-red-500 '/>
                 </div>
             ))}
-            <Button>Check Out ${CalculateCartAmount()}</Button>
+            <Link href={'/checkout?restaurant='+cart[0]?.restaurant?.name}>
+                <Button className="w-full">Check Out ${CalculateCartAmount()}</Button>
+            </Link>
         </div>
     </div>
   )

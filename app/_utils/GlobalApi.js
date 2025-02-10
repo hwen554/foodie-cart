@@ -221,6 +221,69 @@ const GetRestaurantReviews = async(slug)=>{
   return result;
 }
 
+const CreateNewOrder = async(data)=>{
+  const query = gql`
+    mutation CreateNewOrder {
+      createOrder(
+        data: {
+          email: "`+data.email+`"
+          orderAmount: `+data.orderAmount+`
+          restaurantName: "`+data.restaurantName+`"
+          userName: "`+data.userName+`"
+          address: "`+data.address+`"
+          phone: "`+data.phone+`"
+          zipCode: "`+data.zipCode+`"
+        }
+      ) {
+        id
+      }
+    }
+  `;
+
+  const result = await request(MASTER_URL, query);
+  return result;
+}
+
+// const UpdateOrderToAddOrderItems = async(name,price,id) =>{
+//    const query = gql`
+//       mutation UpdateOrderWithDetail {
+//       updateOrder(
+//         data: {orderDetail: {create: {OrderItem: {data: {_: "Name:${name}, Price:${price}"}}}}}
+//         where: {id: "`+id+`"}
+//       ) {
+//         id
+//       }
+//     }
+//    `;
+//    const result = await request(MASTER_URL, query);
+//    return result;
+// }
+
+
+const UpdateOrderToAddOrderItems = async(name,price,id) =>{
+  const query = gql`
+     mutation UpdateOrderWithDetail {
+      updateOrder(
+        data: {orderDetail: {create: {OrderItem: {data: {name: "`+name+`", price:`+price+`}}}}}
+        where: {id: "`+id+`"}
+      ) {
+        id
+      }
+    }
+  `;
+  const result = await request(MASTER_URL, query);
+  return result;
+}
+
+
+
+
+
+
+
+
+
+
 export default {
     GetCategory,
     GetBusiness,
@@ -230,5 +293,7 @@ export default {
     DisconnectRestaurantFromUserCartItem,
     DeleteItemFromCart,
     AddNewReview,
-    GetRestaurantReviews
+    GetRestaurantReviews,
+    CreateNewOrder,
+    UpdateOrderToAddOrderItems
 }
