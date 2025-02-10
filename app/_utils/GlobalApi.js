@@ -269,19 +269,14 @@ const UpdateOrderToAddOrderItems = async(name,price,id) =>{
       ) {
         id
       }
+        publishManyOrders(to: PUBLISHED) {
+          count
+        }
     }
   `;
   const result = await request(MASTER_URL, query);
   return result;
 }
-
-
-
-
-
-
-
-
 
 
 export default {
