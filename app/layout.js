@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import Provider from "./Provider";
 import '@smastrom/react-rating/style.css'
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {

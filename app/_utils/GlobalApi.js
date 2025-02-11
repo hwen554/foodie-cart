@@ -260,7 +260,7 @@ const CreateNewOrder = async(data)=>{
 // }
 
 
-const UpdateOrderToAddOrderItems = async(name,price,id) =>{
+const UpdateOrderToAddOrderItems = async(name,price,id,email) =>{
   const query = gql`
      mutation UpdateOrderWithDetail {
       updateOrder(
@@ -269,9 +269,41 @@ const UpdateOrderToAddOrderItems = async(name,price,id) =>{
       ) {
         id
       }
-        publishManyOrders(to: PUBLISHED) {
+      publishManyOrders(to: PUBLISHED) {
           count
+      }
+      
+      deleteManyUserCarts(where: {email: "`+email+`"}) {
+          count
+      } 
+      
+    }
+  `;
+  const result = await request(MASTER_URL, query);
+  return result;
+}
+
+const GetUserOrders = async(email)=>{
+  const query = gql`
+    query UserOrders {
+      orders(where: {email: "`+email+`"},orderBy: publishedAt_DESC) {
+        address
+        createdAt
+        email
+        id
+        orderAmount
+        orderDetail {
+          ... on OrderItem {
+            id
+            name
+            price
+          }
         }
+        phone
+        restaurantName
+        userName
+        zipCode
+      }
     }
   `;
   const result = await request(MASTER_URL, query);
@@ -290,5 +322,6 @@ export default {
     AddNewReview,
     GetRestaurantReviews,
     CreateNewOrder,
-    UpdateOrderToAddOrderItems
+    UpdateOrderToAddOrderItems,
+    GetUserOrders,
 }
