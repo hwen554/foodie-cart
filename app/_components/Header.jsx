@@ -63,7 +63,7 @@ function Header() {
   return (
     <div className="flex justify-between items-center p-6 md:px-20 shadow-sm">
       <Link href="/">
-        <Image src="/logo.svg" alt="logo" width={100} height={100} />
+        <Image src="/logo.png" alt="logo" width={200} height={200} />
       </Link>
       <div className="hidden md:flex border p-2 rounded-lg bg-gray-200 ">
         <input type="text" className="bg-transparent w-full outline-none" />
